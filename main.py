@@ -14,12 +14,18 @@ def writepasswd():
     conn.close()
     return passwd,hashed
 def checkpasswd():
-#    cursor= c.execute("SELECT username,password FROM users")
-    # for row in cursor:
-        # print("USERNAME = ", row[0])
-        # print("HASHEDPASSWD = ", row[1]) 
-# #    if bcrypt.checkpw(passwd,hashed):
-# #        print("It matches!")
+    dbpasswdInput = input("Please enter your password \n : ").encode("utf-8")
+    dbpasswd = bcrypt.hashpw(dbpasswdInput, bcrypt.gensalt())
+    cursor= c.execute("SELECT username,password FROM users")
+    for row in cursor:
+        print("USERNAME = ", row[0])
+        print("HASHEDPASSWD = ", row[1])
+        hasheddb = row[1]
+        print("DBPASSWD = ", dbpasswd)
+    if bcrypt.checkpw(dbpasswd,hasheddb):
+        print("It matches!")
+    else:
+        print("Doesnt match")
     conn.close()
 def deleteuser():
     cursor= c.execute("SELECT username,password FROM users")

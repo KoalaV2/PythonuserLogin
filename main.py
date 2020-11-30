@@ -32,6 +32,7 @@ def deleteuser():
     for row in cursor:
         print("\n USERNAME = ", row[0])
     user = input("\n What user do you want to delete? \n : ")
+    # SQL INJECTABLE NEED TO FIX / SECURE BEFORE USING ( WORKING ON A FIX )
     c.execute("DELETE from users where username =" + f'"{user}"' + ";")
     conn.commit()
 def main():
